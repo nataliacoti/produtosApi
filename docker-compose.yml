@@ -1,0 +1,28 @@
+services:
+
+  produtosapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: produtosapi_app
+    restart: always
+    ports:
+       - "8081:8081"
+    depends_on:
+       - postgres
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_bd_produtosapi
+    restart: always
+    environment:
+      POSTGRES_DB: bd_produtosapi
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: senha123
+    ports:
+      - "5438:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
